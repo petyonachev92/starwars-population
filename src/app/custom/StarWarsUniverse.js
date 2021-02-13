@@ -51,14 +51,13 @@ export default class StarWarsUniverse extends EventEmitter {
     }
 
     _onPersonBorn(filmUrls) {
-
         filmUrls.forEach(element => {
-            if(!this.films.includes(element)) {
+            if(!containsObject(element, this.films)) {
                 const film = new Film(element);
 
                 this.films.push(film);
                 this.emit(StarWarsUniverse.events.FILM_ADDED);
-                console.log(element);
+                
             }
         });
     }
@@ -66,4 +65,14 @@ export default class StarWarsUniverse extends EventEmitter {
     _onPopulatingComplete() {
         this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
     }
+}
+
+function containsObject(str, list) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].url == str) {
+            return true;
+        }
+    }
+
+    return false;
 }
