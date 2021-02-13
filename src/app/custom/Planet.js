@@ -43,7 +43,7 @@ export default class Planet extends EventEmitter {
         if(i < 10) {
             await this.populate()
         } else {
-            this.emit(Planet.events.POPULATING_COMPLETED);
+            /* this.emit(Planet.events.POPULATING_COMPLETED); */
             console.log(this.populationCount)
         }
     }
