@@ -34,7 +34,7 @@ export default class Planet extends EventEmitter {
         this.population.push(person);
 
         const filmUrls = element.films
-        console.log(filmUrls)
+
 
         this.emit(Planet.events.PERSON_BORN, filmUrls);
         /* console.log(element.films) */

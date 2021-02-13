@@ -1,4 +1,5 @@
 import EventEmitter from "eventemitter3";
+import delay from "../utils";
 import Film from "./Film";
 import Planet from "./Planet";
 
@@ -31,6 +32,7 @@ export default class StarWarsUniverse extends EventEmitter {
                 const popData = await response.json()
 
                 planetData = popData.results
+                break;
 
             }
         }
