@@ -21,7 +21,7 @@ export default class StarWarsUniverse extends EventEmitter {
         /* const resp = await fetch('https://swapi.booost.bg/api/planets/')
         const data = await resp.json() */
 
-        let planetData = null;
+        /* let planetData = null; */
 
         /* for (let i = 1; i <= +data.count; i++) {
             const resp = await fetch(`https://swapi.booost.bg/api/planets/${i}/`)
@@ -35,7 +35,7 @@ export default class StarWarsUniverse extends EventEmitter {
         const response = await fetch('https://swapi.booost.bg/api/people/')
         const popData = await response.json()
 
-        planetData = popData.results
+        const planetData = popData.results
         const planet = new Planet();
 
         planet.peopleData = planetData
@@ -66,8 +66,8 @@ export default class StarWarsUniverse extends EventEmitter {
     }
 
     _onPopulatingComplete() {
-        this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
-        console.log('universe populated')
+        /* this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
+        console.log('universe populated') */
     }
 }
 

@@ -1,7 +1,7 @@
 import config from '../config';
 import EventEmitter from 'eventemitter3';
 import StarWarsUniverse from './custom/StarWarsUniverse';
-import Planet from '../app/custom/Planet';
+
 
 const EVENTS = {
   APP_READY: 'app_ready',
@@ -39,8 +39,10 @@ export default class Application extends EventEmitter {
     await universe.init();
 
     this.data.universe = universe
+
+    this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
+    console.log('universe populated')
     console.log(this.data.universe)
-    this.emit(Planet.events.POPULATING_COMPLETED);
     console.log('emitted')
     console.log(universe.films)
     this.emit(Application.events.APP_READY);
