@@ -40,8 +40,6 @@ export default class Application extends EventEmitter {
 
     this.data.universe = universe
 
-    this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
-    console.log('universe populated')
     console.log(this.data.universe)
     console.log('emitted')
     console.log(universe.films)
