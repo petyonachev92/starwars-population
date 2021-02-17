@@ -18,20 +18,7 @@ export default class StarWarsUniverse extends EventEmitter {
     }
 
     async init() {
-        /* const resp = await fetch('https://swapi.booost.bg/api/planets/')
-        const data = await resp.json() */
 
-        /* let planetData = null; */
-
-        /* for (let i = 1; i <= +data.count; i++) {
-            const resp = await fetch(`https://swapi.booost.bg/api/planets/${i}/`)
-            const data = await resp.json()
-
-            if (+data.population == 0) {
-                break;
-                
-            }
-        } */
         const response = await fetch('https://swapi.booost.bg/api/people/')
         const popData = await response.json()
 
@@ -39,13 +26,12 @@ export default class StarWarsUniverse extends EventEmitter {
         const planet = new Planet();
 
         planet.peopleData = planetData
-
-        /* console.log(popData)
-        console.log(planet.peopleData) */
         
         this.planet = planet;
         
         planet.on(Planet.events.PERSON_BORN, (filmUrls) => this._onPersonBorn(filmUrls))
+        planet.on(Planet.events.POPULATING_COMPLETED, () => console.log(planet.populationCount))
+        planet.on(Planet.events.POPULATING_COMPLETED, () => console.log(this.films))
         planet.on(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete)
         
         await planet.populate();
@@ -66,8 +52,8 @@ export default class StarWarsUniverse extends EventEmitter {
     }
 
     _onPopulatingComplete() {
-        this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
         console.log('universe populated')
+        this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED)
     }
 }
 

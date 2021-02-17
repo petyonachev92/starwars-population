@@ -40,9 +40,6 @@ export default class Application extends EventEmitter {
 
     this.data.universe = universe
 
-    console.log(this.data.universe)
-    console.log('emitted')
-    console.log(universe.films)
     this.emit(Application.events.APP_READY);
   }
 }
