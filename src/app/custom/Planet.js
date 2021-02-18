@@ -2,8 +2,6 @@ import EventEmitter from "eventemitter3";
 import delay from "../utils";
 import Person from "./Person";
 
-var i = 0;
-
 export default class Planet extends EventEmitter {
     constructor(name, config = { populationDelay: 1 }, peopleData) {
         super()
@@ -24,7 +22,7 @@ export default class Planet extends EventEmitter {
         return this.population.length;
     }
 
-    populate() {
+    async populate() {
 
         this.peopleData.forEach(element => {
             
@@ -35,7 +33,6 @@ export default class Planet extends EventEmitter {
             this.population.push(person);
     
             const filmUrls = element.films
-    
     
             this.emit(Planet.events.PERSON_BORN, filmUrls);
         });

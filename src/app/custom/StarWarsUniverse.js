@@ -34,7 +34,7 @@ export default class StarWarsUniverse extends EventEmitter {
         planet.on(Planet.events.POPULATING_COMPLETED, () => console.log(this.films))
         planet.on(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete)
         
-        planet.populate();
+        await planet.populate();
 
     }
 
@@ -44,9 +44,7 @@ export default class StarWarsUniverse extends EventEmitter {
                 const film = new Film(element);
 
                 this.films.push(film);
-                this.emit(StarWarsUniverse.events.FILM_ADDED);
-                console.log(film)
-                
+                this.emit(StarWarsUniverse.events.FILM_ADDED);                
             }
         });
     }

@@ -19,6 +19,7 @@ export default class Application extends EventEmitter {
     this.data = {};
 
     this.init();
+    this.on(Application.events.APP_READY, () => console.log('emitted: app ready'))
   }
 
   static get events() {
@@ -39,8 +40,10 @@ export default class Application extends EventEmitter {
     await universe.init();
 
     this.data.universe = universe
+    console.log(this.data.universe);
 
     this.emit(Application.events.APP_READY);
+    console.log('finito')
   }
 }
 
