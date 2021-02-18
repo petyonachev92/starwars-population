@@ -24,26 +24,23 @@ export default class Planet extends EventEmitter {
         return this.population.length;
     }
 
-    async populate() {
-        let element = this.peopleData[i]
+    populate() {
+
+        this.peopleData.forEach(element => {
+            
+            delay(this.config.populationDelay);
+    
+            let person = new Person(element.name, element.height, element.mass);
+    
+            this.population.push(person);
+    
+            const filmUrls = element.films
+    
+    
+            this.emit(Planet.events.PERSON_BORN, filmUrls);
+        });
                     
-        await delay(this.config.populationDelay);
-
-        let person = new Person(element.name, element.height, element.mass);
-
-        this.population.push(person);
-
-        const filmUrls = element.films
-
-
-        this.emit(Planet.events.PERSON_BORN, filmUrls);
         /* console.log(element.films) */
-        i++;
-
-        if(i < 10) {
-            await this.populate()
-        } else {
-            this.emit(Planet.events.POPULATING_COMPLETED);
-        }
+        this.emit(Planet.events.POPULATING_COMPLETED);
     }
 }
