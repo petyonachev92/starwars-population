@@ -19,7 +19,6 @@ export default class Application extends EventEmitter {
     this.data = {};
 
     this.init();
-    this.on(Application.events.APP_READY, () => console.log(this.data))
   }
 
   static get events() {
@@ -44,7 +43,8 @@ export default class Application extends EventEmitter {
     console.log(this.data.universe);
 
     this.emit(Application.events.APP_READY);
-    console.log('finito')
+    /* console.log('1) should have 10 people in Planet.populationCount when universe_populated is emitted' + 
+    ' 2) should have 6 films in StarWarsUniverse.films when universe_populated is emitted') */
   }
 }
 
