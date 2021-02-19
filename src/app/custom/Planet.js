@@ -22,7 +22,7 @@ export default class Planet extends EventEmitter {
         return this.population.length;
     }
 
-    async populate() {
+    populate() {
 
         this.peopleData.forEach(element => {
             

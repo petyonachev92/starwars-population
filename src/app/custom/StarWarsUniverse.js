@@ -8,33 +8,34 @@ export default class StarWarsUniverse extends EventEmitter {
         super()
         this.films = []
         this.planet = null;
-    }
 
+    }
+    
     static get events() {
         return {
             FILM_ADDED: 'film_added',
             UNIVERSE_POPULATED: 'universe_populated'
         }
     }
-
+    
     async init() {
-
+        
         const response = await fetch('https://swapi.booost.bg/api/people/')
         const popData = await response.json()
-
+        
         const planetData = popData.results
         const planet = new Planet();
-
+        
         planet.peopleData = planetData
         
         this.planet = planet;
         
         planet.on(Planet.events.PERSON_BORN, (filmUrls) => this._onPersonBorn(filmUrls))
-        planet.on(Planet.events.POPULATING_COMPLETED, () => console.log(planet.populationCount))
-        planet.on(Planet.events.POPULATING_COMPLETED, () => console.log(this.films))
-        planet.on(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete)
+        planet.once(Planet.events.POPULATING_COMPLETED, () => console.log('populating is complete'))
+        planet.once(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete)
+        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log('universe'))
         
-        await planet.populate();
+        planet.populate();
 
     }
 
