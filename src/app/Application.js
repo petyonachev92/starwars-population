@@ -19,7 +19,7 @@ export default class Application extends EventEmitter {
     this.data = {};
 
     this.init();
-    this.on(Application.events.APP_READY, () => console.log('emitted: app ready'))
+    this.on(Application.events.APP_READY, () => console.log(this.data))
   }
 
   static get events() {
@@ -36,6 +36,7 @@ export default class Application extends EventEmitter {
     // Initiate classes and wait for async operations here.
 
     const universe = new StarWarsUniverse();
+    
 
     await universe.init();
 
