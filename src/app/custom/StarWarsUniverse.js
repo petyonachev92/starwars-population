@@ -21,22 +21,57 @@ export default class StarWarsUniverse extends EventEmitter {
     }
     
     async init() {
+
+        const resp = await fetch('https://swapi.booost.bg/api/planets/')
+        const data = await resp.json()
+
+        let planetData = null;
+        const planet = new Planet();
+
+        for (let i = 1; i <= +data.count; i++) {
+            const resp = await fetch(`https://swapi.booost.bg/api/planets/${i}/`)
+            const data = await resp.json()
+
+            if (+data.population == 0) {
+                const response = await fetch('https://swapi.booost.bg/api/people/')
+                const popData = await response.json()
+
+                planetData = popData.results
+
+                console.log(data)
+                
+                
+                planet.name = data.name
+                planet.peopleData = planetData
         
-        const response = await fetch('https://swapi.booost.bg/api/people/')
+                /* console.log(popData)
+                console.log(planet.peopleData) */
+        
+                this.planet = planet;
+        
+                console.log(planetData)
+            }
+        }
+        
+        /* const response = await fetch('https://swapi.booost.bg/api/people/')
         const popData = await response.json()
+
+        console.log(popData)
         
         const planetData = popData.results
         const planet = new Planet();
         
         planet.peopleData = planetData
         
-        this.planet = planet;
+        this.planet = planet; */
         
         planet.on(Planet.events.PERSON_BORN, (filmUrls) => this._onPersonBorn(filmUrls))
         planet.once(Planet.events.POPULATING_COMPLETED, () => console.log('populating is complete'))
+        planet.once(Planet.events.POPULATING_COMPLETED, () => console.log(planet.populationCount))
+        planet.once(Planet.events.POPULATING_COMPLETED, () => console.log(this.films))
         planet.once(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete, this)
-        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(planet.populationCount))
-        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(this.films))
+        /* this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(planet.populationCount))
+        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(this.films)) */
         
         planet.populate();
 
