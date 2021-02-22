@@ -38,9 +38,6 @@ export default class StarWarsUniverse extends EventEmitter {
 
                 planetData = popData.results
 
-                console.log(data)
-                
-                
                 planet.name = data.name
                 planet.peopleData = planetData
         
@@ -48,8 +45,6 @@ export default class StarWarsUniverse extends EventEmitter {
                 console.log(planet.peopleData) */
         
                 this.planet = planet;
-        
-                console.log(planetData)
             }
         }
         
@@ -69,11 +64,13 @@ export default class StarWarsUniverse extends EventEmitter {
         planet.once(Planet.events.POPULATING_COMPLETED, () => console.log('populating is complete'))
         planet.once(Planet.events.POPULATING_COMPLETED, () => console.log(planet.populationCount))
         planet.once(Planet.events.POPULATING_COMPLETED, () => console.log(this.films))
-        planet.once(Planet.events.POPULATING_COMPLETED, this._onPopulatingComplete, this)
-        /* this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(planet.populationCount))
-        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log(this.films)) */
+        planet.once(Planet.events.POPULATING_COMPLETED, () => this.emit(StarWarsUniverse.events.UNIVERSE_POPULATED))
+        this.on(StarWarsUniverse.events.UNIVERSE_POPULATED, () => console.log('добре'))
         
-        planet.populate();
+        
+        await planet.populate();
+
+        console.log(planet)
 
     }
 
